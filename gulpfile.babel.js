@@ -25,8 +25,8 @@ ex : .pipe(concat('all.js'))
 
 /* CONFIGURATION */
 const config = {
-    assetsDir: 'app',
-    destDir: 'web'
+    assetsDir: 'app/assets',
+    destDir: 'web/assets'
 };
 const sassPaths = {
     src: `${config.assetsDir}/css/**/*.scss`,
@@ -38,8 +38,8 @@ const jsPaths = {
 };
 
 const imgPaths = {
-    src: `${config.assetsDir}/img/*`,
-    dest: `${config.destDir}/img/`
+    src: `${config.assetsDir}/images/*`,
+    dest: `${config.destDir}/images/`
 };
 
 
