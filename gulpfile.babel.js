@@ -13,6 +13,7 @@ import sourcemaps from 'gulp-sourcemaps';
 
 // JS
 import babel from 'gulp-babel';
+import concat from 'gulp-concat';
 import uglify from 'gulp-uglify';
 
 // Image
@@ -25,8 +26,8 @@ ex : .pipe(concat('all.js'))
 
 /* CONFIGURATION */
 const config = {
-    assetsDir: 'app',
-    destDir: 'web'
+    assetsDir: 'app/assets',
+    destDir: 'web/assets'
 };
 const sassPaths = {
     src: `${config.assetsDir}/css/**/*.scss`,
@@ -38,8 +39,8 @@ const jsPaths = {
 };
 
 const imgPaths = {
-    src: `${config.assetsDir}/img/*`,
-    dest: `${config.destDir}/img/`
+    src: `${config.assetsDir}/images/*`,
+    dest: `${config.destDir}/images/`
 };
 
 
@@ -52,8 +53,9 @@ gulp.task('stylesheets', () => {
     return gulp.src(sassPaths.src)
         .pipe(plumber())
         .pipe(sourcemaps.init())
-        .pipe(sass().on('error', sass.logError))
+        .pipe(sass({compass: true}).on('error', sass.logError))
         .pipe(autoprefixer())
+        .pipe(concat('app.css'))
         .pipe(cleanCSS())
         .pipe(sourcemaps.write('./maps'))
         .pipe(gulp.dest(sassPaths.dest));
@@ -66,6 +68,7 @@ gulp.task('javascripts', () => {
         .pipe(babel({
             presets: ['es2015']
         }))
+        .pipe(concat('app.js'))
         .pipe(uglify())
         .pipe(sourcemaps.write('./maps'))
         .pipe(gulp.dest(jsPaths.dest));
